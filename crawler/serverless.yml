@@ -8,15 +8,15 @@ provider:
   timeout: 30
   environment:
     STAGE: ${self:provider.stage}
-    CRAWLERS_TABLE:
-      Ref: CrawlersTable
     APIFY_KEY: ${file(config.${opt:stage}.json):APIFY_KEY}
+    CRAWLERS_TABLE: ${cf.${self:provider.region}:${self:service.name}-${self:provider.stage}.CrawlersTable}
   apiGateway:
     binaryMediaTypes:
       - "*/*"
 
   versionFunctions: false
   lambdaHashingVersion: 20201221
+
   iam:
     role:
       statements:
@@ -29,7 +29,6 @@ provider:
 custom:
   defaultStage: ${self:provider.stage}
   currentStage: ${self:provider.stage}
-  defaultRegion: ${cf.${self:provider.region}:diagnal-layers-${self:provider.stage}.CommonLibsLambdaLayerQualifiedArn}
 
 package:
   patterns:

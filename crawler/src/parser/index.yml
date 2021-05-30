@@ -6,5 +6,4 @@ parser:
         method: post
         cors: true
   layers:
-    # - ${cf.${self:provider.region}:diagnal-layers-${self:provider.stage}.CommonLibsLambdaLayerQualifiedArn}
-    - arn:aws:lambda:ap-south-1:742636833610:layer:diagnal-layers-dev-basic-nodejs:9
+    - ${cf.${self:provider.region}:diagnal-layers-${self:provider.stage}.CommonLibsLambdaLayerQualifiedArn}

@@ -9,10 +9,8 @@ module.exports = async requestBody => {
   try {
     const DDBdata = await getDDBCrawlerData(requestBody.url);
 
-    console.log("DDBdataDDBdata", DDBdata);
-
-    if (DDBdata.count) {
-      return DDBdata.Items[0];
+    if (DDBdata.Count) {
+      return DDBdata.Items[0].data ? JSON.parse(DDBdata.Items[0].data) : {};
     }
 
     const client = new ApifyClient({
@@ -42,6 +40,7 @@ module.exports = async requestBody => {
 
     return response;
   } catch (e) {
+    console.log("error", e);
     throw new Error(
       JSON.stringify({
         message: e.message,
@@ -73,9 +72,9 @@ const getDDBCrawlerData = async url => {
 const saveToDDB = payload => {
   var d1 = new Date(),
     d2 = new Date(d1);
-  d2.setMinutes(d1.getMinutes() + 1);
+  d2.setMinutes(d1.getMinutes() + 2);
 
-  payload.ExpirationTime = Math.floor(d1.getTime() / 1000);
+  payload.ExpirationTime = Math.floor(d2.getTime() / 1000);
 
   var itemParams = {
     TableName: process.env.CRAWLERS_TABLE,
