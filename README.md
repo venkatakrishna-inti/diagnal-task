@@ -22,3 +22,11 @@ cd ../crawler
 npm install
 sls deploy -s dev
 ```
+
+API End Point:
+
+```
+https://o5vwp3tmpf.execute-api.ap-south-1.amazonaws.com/dev/parser
+```
+
+`https://o5vwp3tmpf.execute-api.ap-south-1.amazonaws.com/dev` is the Domain
