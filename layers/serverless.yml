@@ -1,0 +1,23 @@
+service: ${file(config.${opt:stage}.json):NAME}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(config.${opt:stage}.json):REGION}
+  stage: ${file(config.${opt:stage}.json):STAGE}
+  iamRoleStatements:
+    - Effect: "Allow"
+      Resource: "*"
+
+package:
+  exclude:
+    - node_modules/**
+
+layers:
+  commonLibs:
+    path: common
+    name: ${self:service.name}-${self:provider.stage}-basic-nodejs
+    compatibleRuntimes:
+      - nodejs12.x
+    allowedAccounts:
+      - "*"

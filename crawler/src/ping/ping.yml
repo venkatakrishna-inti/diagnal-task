@@ -1,0 +1,9 @@
+ping:
+  handler: src/ping/ping.handler
+  events:
+    - http:
+        path: ping
+        method: get
+  layers:
+    # - ${cf.${self:provider.region}:diagnal-layers-${self:provider.stage}.CommonLibsLambdaLayerQualifiedArn}
+    - arn:aws:lambda:ap-south-1:742636833610:layer:diagnal-layers-dev-basic-nodejs:8

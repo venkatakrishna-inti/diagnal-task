@@ -1,0 +1,20 @@
+{
+  "name": "nodejs",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@hapi/joi": "^17.1.1",
+    "apify-client": "^1.2.2",
+    "body-parser": "^1.19.0",
+    "diagnal-internal": "../../internal",
+    "express": "^4.17.1",
+    "lodash": "^4.17.21",
+    "serverless-http": "^2.7.0"
+  }
+}

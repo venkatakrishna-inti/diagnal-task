@@ -1,0 +1,45 @@
+service: ${file(config.${opt:stage}.json):NAME}
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  region: ${file(config.${opt:stage}.json):REGION}
+  stage: ${file(config.${opt:stage}.json):STAGE}
+  timeout: 30
+  environment:
+    STAGE: ${self:provider.stage}
+    CRAWLERS_TABLE:
+      Ref: CrawlersTable
+    APIFY_KEY: ${file(config.${opt:stage}.json):APIFY_KEY}
+  apiGateway:
+    binaryMediaTypes:
+      - "*/*"
+
+  versionFunctions: false
+  lambdaHashingVersion: 20201221
+  iam:
+    role:
+      statements:
+        - Effect: "Allow"
+          Action:
+            - "dynamodb:*"
+            - "s3:*"
+          Resource: "*"
+
+custom:
+  defaultStage: ${self:provider.stage}
+  currentStage: ${self:provider.stage}
+  defaultRegion: ${cf.${self:provider.region}:diagnal-layers-${self:provider.stage}.CommonLibsLambdaLayerQualifiedArn}
+
+package:
+  patterns:
+    - node_modules/**
+
+functions:
+  - ${file(src/parser/index.yml)}
+resources:
+  - ${file(resources/ddb_crawler.yml)}
+  - Outputs:
+      CrawlersTable:
+        Value:
+          Ref: CrawlersTable

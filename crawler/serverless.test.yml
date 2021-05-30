@@ -1,0 +1,7 @@
+- name: parser-test
+  endpoint: { function: parser }
+  request:
+    body:
+      url: https://www.amazon.com/Apple-iPhone-16gb-Space-Unlocked/dp/B00NQGP42Y/
+  response:
+    body: "Web Scraping, Data Extraction and Automation · Apify"

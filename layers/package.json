@@ -1,0 +1,12 @@
+{
+	"name": "layers",
+	"version": "1.0.0",
+	"description": "",
+	"main": "index.js",
+	"scripts": {
+		"deploy": "cd internal && npm install && cd ../ && cd common/nodejs && npm install && cd ../../ && AWS_PROFILE=krishna sls deploy -s dev",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "",
+	"license": "ISC"
+}
